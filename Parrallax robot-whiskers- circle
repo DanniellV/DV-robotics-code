@@ -1,0 +1,64 @@
+#include <Servo.h> // Include servo library
+
+Servo servoLeft; // Declare left and right servos
+Servo servoRight;
+
+int leftSpeed=1600;
+int rightSpeed=1455;
+
+void setup() // Built-in initialization block
+{
+ pinMode(7, INPUT); // Set right whisker pin to input
+ pinMode(5, INPUT); // Set left whisker pin to input
+ tone(4, 3000, 1000); // Play tone for 1 second
+ delay(1000); // Delay to finish tone
+ servoLeft.attach(13); // Attach left signal to pin 13
+ servoRight.attach(12); // Attach right signal to pin 12
+ Serial.begin(9600);
+ 
+}
+
+void loop() //runs counterclockwise circle
+{
+  servoLeft.writeMicroseconds(leftSpeed);
+  servoRight.writeMicroseconds(rightSpeed);
+  Serial.print("leftspeed: ");
+  Serial.print(leftSpeed);
+  Serial.print(" ");
+  Serial.print("rightspeed: ");
+  Serial.println(rightSpeed);
+  delay(50);
+
+ byte wLeft = digitalRead(5); // Copy left result to wLeft
+ byte wRight = digitalRead(7); // Copy right result to wRight
+ 
+ while(wLeft = digitalRead(5) == 0){//makes smaller circle
+  
+  leftSpeed= leftSpeed+5;
+  rightSpeed= rightSpeed+5;
+  servoLeft.writeMicroseconds(leftSpeed);
+  servoRight.writeMicroseconds(rightSpeed);
+  Serial.print("leftspeed: ");
+  Serial.print(leftSpeed);
+  Serial.print(" ");
+  Serial.print("rightspeed: ");
+  Serial.println(rightSpeed);
+  delay(50);
+ }
+ 
+ while(wRight = digitalRead(7)==0){//makes circle bigger
+  
+  leftSpeed= leftSpeed-5;
+  rightSpeed= rightSpeed-5;
+  servoLeft.writeMicroseconds(leftSpeed);
+  servoRight.writeMicroseconds(rightSpeed);
+  Serial.print("leftspeed: ");
+  Serial.print(leftSpeed);
+  Serial.print(" ");
+  Serial.print("rightspeed: ");
+  Serial.println(rightSpeed);
+  delay(50);
+ }
+ 
+}
+
