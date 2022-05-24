@@ -1,0 +1,31 @@
+const int DIR_A = 5;//BIN2
+const int DIR_B = 4;//BIN1
+const int PWM = 6;//PWMB
+const int button = 2;
+ 
+int buttonread = 0
+void setup()
+{
+//set all pins as output
+pinMode(DIR_A, OUTPUT);
+pinMode(DIR_B, OUTPUT);
+pinMode(PWM, OUTPUT);
+pinMode(button,INPUT);//button input
+ 
+}
+ 
+void loop()
+{
+buttonread = digitalRead(button);
+ 
+ if(buttonread == HIGH){
+    digitalWrite(DIR_A, HIGH);
+    digitalWrite(DIR_B, LOW);
+    analogWrite(PWM, 255);
+ }
+ else{
+   digitalWrite(DIR_A, LOW);
+    digitalWrite(DIR_B, LOW);
+    analogWrite(PWM, 0);
+ }
+}
